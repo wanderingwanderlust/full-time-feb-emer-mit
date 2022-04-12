@@ -1,0 +1,101 @@
+#turntable {
+    position: relative;
+    width: 260px;
+    height: 200px;
+    margin-top: 127px;
+    left: 10%;
+    background-color: blue;
+}
+#table-shadow {
+    position: relative;
+    bottom: 53px;
+    width: 299px;
+    height: 220px;
+    background: #000;
+    transform: rotateZ((10deg) skewX(-25deg));
+    -ms-transform: rotateZ(10deg) skewX(-25deg);
+    -moz-transform: rotateZ(10deg) skewX(-25deg);
+    -webkit-transform: rotateZ(-16deg) skewX(19deg);
+    opacity: .04;
+}
+
+#wood {
+    position: relative;
+    bottom: 131px;
+    left: 63px;
+    width: 309px;
+    height: 26px;
+    background: black;
+    border-radius: 0 0 15px 8px;
+    transform: rotateZ(10deg) skewX(10deg);
+    -ms-transform: rotateZ(10deg) skewX(10deg);
+    -moz-transform: rotateZ(10deg) skewX(10deg);
+    -webkit-transform: rotateZ(-16deg) skewX(-24deg);
+    overflow: hidden;
+    z-index: 1;
+}
+
+#wood2 {
+    position: relative;
+    bottom: 257px;
+    left: 15px;
+    width: 20px;
+    height: 171px;
+    background: black;
+    border-radius: 55px 265px 77px 103px;
+    transform: rotateZ(50deg) skewX(15deg) skewY(48deg);
+    -ms-transform: rotateZ(50deg) skewX(15deg) skewY(48deg);
+   -moz-transform: rotateZ(50deg) skewX(15deg) skewY(48deg);
+   -webkit-transform: rotateZ(-20deg) skewX(15deg) skewY(-52deg);
+   overflow: hidden;
+}
+
+#table {
+    position: relative;
+    bottom: 497px;
+    left: 15px;
+    width: 302px;
+    height: 189px;
+    background: #5c656f;
+    border-radius: 10px;
+    transform: rotateZ(-17deg) skewX(21deg);
+    z-index: 2;
+}
+
+#disk {
+    position: relative;
+    bottom: 768px;
+    left: 25px;
+    width: 250px;
+    height: 250px;
+    background: #1a1a1a;
+    border: 150px;
+    box-shadow: 0px 8px #b8c6db;
+    transform: rotateX(50deg) rotateY(-3deg);
+    z-index: 5;
+}
+
+#disk:before {
+    position: relative;
+    bottom: 786px;
+    left: 25px;
+    width: 250px;
+    height: 250px;
+    background: #383838;
+    border-radius: 150px;
+    box-shadow: 0px 3px #252525;
+    content: '';
+}
+
+#arm {
+    position: absolute;
+    bottom: 221px;
+    left: 192px;
+    width: 99px;
+    height: 14px;
+    background: #464646;
+    border-bottom: 3px solid #1a1a1a;
+    border-radius: 45px;
+    transform: rotateZ(-55deg);
+    z-index: 7;
+}
