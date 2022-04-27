@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Formik } from 'formik';
 import GifViewer from './GifViewer';
 import axios from 'axios';
 
@@ -46,13 +47,61 @@ function GifSearch() {
                 buttonAction={remove}
                 buttonText={'delete'}
             />
-
             <div>
                 <h3>Search for Gifs</h3>
                 <form onSubmit={search}>
                     <input value={input} onChange={(event) => setInput(event.target.value)} />
                     <button>Search</button>
                 </form>
+
+
+
+            <h4>Search GIFS with the power of Formik</h4>
+
+
+            <Formik
+                initialValues={{ input: '' }}
+                validate={values => {
+                    const errors = {};
+                    if (!values.input === '' || !values.input === null) {
+                    errors.input = 'Required';
+                    }
+                    return errors;
+                }}
+                onSubmit={({ search })}
+            >
+       {({
+         values,
+         errors,
+         touched,
+         handleChange,
+         handleBlur,
+         onSubmit,
+         isSubmitting,
+         /* and other goodies */
+       }) => (
+         <form onSubmit={onSubmit}>
+           <input
+             type="input"
+             name="input"
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.input}
+           />
+           {errors.input && touched.input && errors.input}
+    
+
+           <button type="submit" disabled={isSubmitting}>
+             Submit
+           </button>
+         </form>
+       )}
+     </Formik>
+
+
+
+
+                {/* Create a form with */}
             </div>
 
             <div>

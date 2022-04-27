@@ -1,22 +1,38 @@
-import { Navbar, NavbarBrand, NavLink, NavItem, Nav } from "react-bootstrap";
-
+import { Navbar, NavbarBrand, Collapse, NavLink, NavItem, Nav } from 'reactstrap';
+import { useAuth } from '../../context/authContext';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navi() {
+    const auth =  useAuth();
+    const navigate = useNavigate();
+
+    console.log(auth);
+
+    const signout = () => {
+        auth.signout(() => {
+            navigate('/login');
+        })
+    }
 
     return (
-        <Navbar color="dark" dark expand="md">
-            <NavbarBrand to="#">Giphy App</NavbarBrand>
+        <Navbar color="light" light expand="md">
+            <NavbarBrand tag={Link} to="/">Giphy App</NavbarBrand>
+            <Collapse navbar>
                 <Nav className="mr-auto" navbar>
-                    <NavItem to="#">
-                        <NavLink to="#">About</NavLink>
+                    <NavItem>
+                        <NavLink tag={Link} to="/search">Search</NavLink>
                     </NavItem>
-                    <NavItem to="#">
-                        <NavLink to="#">Search</NavLink>
+                    <NavItem>
+                        <NavLink tag={Link} to="/saved">Saved</NavLink>
                     </NavItem>
-                    <NavItem to="#">
-                        <NavLink to="#">Login</NavLink>
+                    <NavItem>
+                        { auth.user
+                            ? <NavLink onClick={signout}>Logout</NavLink> 
+                            : <NavLink tag={Link} to="/login">Login</NavLink>
+                        }
                     </NavItem>
                 </Nav>
+            </Collapse>
         </Navbar>
     )
 }
