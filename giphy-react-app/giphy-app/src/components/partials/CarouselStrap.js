@@ -1,14 +1,10 @@
 import { Carousel } from 'react-bootstrap';
-import {useState} from 'react'
 
 function CarouselStrap(props) {
 
-  const [carouselImage, setCarouselImage] = useState(props.images)
-  const propImages = []
+  const propImages = props.images
 
-  console.log('state')
-  console.log(carouselImage)
-
+  console.log(props)
   console.log('props')
   console.log(propImages)
 
@@ -16,21 +12,23 @@ function CarouselStrap(props) {
     
     <Carousel>
       { 
-      propImages.map((image) => {
-      return (<Carousel.Item>
+      propImages.map((image, key) => {
+      return (
+      <Carousel.Item>
+        <div key={key}>
         <img
           className="d-block w-100"
-          src="https://picsum.photos/id/123/1200/600"
+          src={image.images.downsized_medium.url}
           alt="First slide"
        />
        <Carousel.Caption>
-         <h3>First slide label</h3>
+         <h3>{image.title}</h3>
          <p></p>
        </Carousel.Caption>
+       </div>
      </Carousel.Item>
       )})
     }
-      
     </Carousel>
   )
 

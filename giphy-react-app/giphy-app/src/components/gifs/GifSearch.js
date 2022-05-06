@@ -9,6 +9,7 @@ function GifSearch() {
     const [input, setInput] = useState('');
     const [gifs, setGifs] = useState([]);
     const [savedGifs, setSavedGifs] = useState([]);
+    
     useEffect(() => {
         const savedGifs = localStorage.getItem('savedGifs');
         if(savedGifs) setSavedGifs(JSON.parse(savedGifs));
@@ -53,55 +54,6 @@ function GifSearch() {
                     <input value={input} onChange={(event) => setInput(event.target.value)} />
                     <button>Search</button>
                 </form>
-
-
-
-            <h4>Search GIFS with the power of Formik</h4>
-
-
-            <Formik
-                initialValues={{ input: '' }}
-                validate={values => {
-                    const errors = {};
-                    if (!values.input === '' || !values.input === null) {
-                    errors.input = 'Required';
-                    }
-                    return errors;
-                }}
-                onSubmit={({ search })}
-            >
-       {({
-         values,
-         errors,
-         touched,
-         handleChange,
-         handleBlur,
-         onSubmit,
-         isSubmitting,
-         /* and other goodies */
-       }) => (
-         <form onSubmit={onSubmit}>
-           <input
-             type="input"
-             name="input"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.input}
-           />
-           {errors.input && touched.input && errors.input}
-    
-
-           <button type="submit" disabled={isSubmitting}>
-             Submit
-           </button>
-         </form>
-       )}
-     </Formik>
-
-
-
-
-                {/* Create a form with */}
             </div>
 
             <div>
