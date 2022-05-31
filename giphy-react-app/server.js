@@ -4,12 +4,16 @@ import { graphqlHTTP } from 'express-graphql';
 import 'dotenv/config';
 import cors from 'cors';
 import { graphql } from 'graphql';
+import mongoose from 'mongoose';
+import authRouter from './routes/auth.js'
 
 const app = express();
 const c = cors;
 const port = 3001;
 
 console.log(process.env.SECRET)
+
+// connect to mongoose db
 
 app.use(express.urlencoded({extended: false}))
 app.use(c());
@@ -65,6 +69,8 @@ app.get('/gifs', (req, res) => {
 app.post('/users', (req, res) => {
     res.json(req.body)
 })
+
+app.use('/auth', authRouter)
 
 
 
