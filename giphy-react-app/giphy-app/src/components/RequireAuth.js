@@ -3,7 +3,6 @@ import { useAuth } from "../context/authContext";
 
 function RequireAuth() {
     let auth = useAuth();
-    console.log(auth)
     let location = useLocation();
 
     if(!auth.user) {

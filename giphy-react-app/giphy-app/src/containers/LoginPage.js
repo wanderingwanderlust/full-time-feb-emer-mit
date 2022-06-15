@@ -14,13 +14,14 @@ function LoginPage() {
 
     const login = (e) => {
         e.preventDefault();
-        console.log(e.target[0].value)
-        auth.signin(() => {
-            const username = e.target[0].value
-            const password = e.target[1].value
+        console.log(username, password)
+
+        auth.signin(username, password).then(() => {
             navigate(from)
         })
     }
+
+    
 
     return (
         <div>

@@ -1,41 +1,33 @@
 import express from 'express';
+import bodyParser from 'body-parser'
 import * as graph from 'graphql';
 import { graphqlHTTP } from 'express-graphql';
 import 'dotenv/config';
 import cors from 'cors';
 import { graphql } from 'graphql';
 import mongoose from 'mongoose';
+
+import gifRouter from './routes/gifs.js'
 import authRouter from './routes/auth.js'
 
 const app = express();
 const c = cors;
 const port = 3001;
+const mongoUrl = 'mongodb+srv://glindeman:test@giphy.wpgyorv.mongodb.net/?retryWrites=true&w=majority';
 
 console.log(process.env.SECRET)
 
 // connect to mongoose db
 
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+mongoose.connect(mongoUrl)
+
 app.use(express.urlencoded({extended: false}))
 app.use(c());
-
-const db = {
-    gifs: [
-        {
-            image: 'test.png',
-            description: 'fjdsklfjksdlfjk'
-        },
-        {
-            image: 'test_2.png',
-            description: 'fjdsklfjksdlfjk'
-        },
-    ],
-    users: [
-        {
-            username: 'greg',
-            password: 'notencryptedyet'
-        }
-    ]
-}
 
 
 // Graphql
@@ -61,9 +53,9 @@ app.get('/', (req, res) => {
     res.send('<html><body><h1>Hello</h1></body></html>')
 })
 
-app.get('/gifs', (req, res) => {
-    res.json(db.gifs)
-})
+// app.get('/gifs', (req, res) => {
+//     res.json(db.gifs)
+// })
 
 
 app.post('/users', (req, res) => {
@@ -71,6 +63,8 @@ app.post('/users', (req, res) => {
 })
 
 app.use('/auth', authRouter)
+
+app.use('/gifs', gifRouter)
 
 
 

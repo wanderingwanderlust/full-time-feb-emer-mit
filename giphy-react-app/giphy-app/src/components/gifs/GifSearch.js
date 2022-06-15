@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
+// import jsonwebtoken from "jsonwebtoken";
 import GifViewer from './GifViewer';
 import axios from 'axios';
 
@@ -9,10 +10,13 @@ function GifSearch() {
     const [input, setInput] = useState('');
     const [gifs, setGifs] = useState([]);
     const [savedGifs, setSavedGifs] = useState([]);
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdsaW5kZW1hbjUiLCJpZCI6IjYyOTlmOGUzNWFiN2E4MzViYmUwNTdiZiIsImlhdCI6MTY1NTIzNzE1NCwiZXhwIjoxNjU1MjQ0MzU0fQ.5k5PyliXnxzkFq-z2PCIK98MoUtQeebEoY5s4o7yvb4';
+    const accessTokenSecret = 'sdklajdklasjdklsajdkal';
+
+
     
     useEffect(() => {
-        const savedGifs = localStorage.getItem('savedGifs');
-        if(savedGifs) setSavedGifs(JSON.parse(savedGifs));
+    
     }, [])
 
     const search = async (event) => {
@@ -25,13 +29,8 @@ function GifSearch() {
     }
 
     const save = (gif) => {
-        const newArray = [...savedGifs, gif];
-        console.log('checking the new array')
-        console.log(newArray)
-        setSavedGifs(newArray);
-        console.log('----------')
-        console.log(JSON.stringify(newArray))
-        localStorage.setItem('savedGifs', JSON.stringify(newArray));
+        console.log('saving gif')
+       console.log(gif)
     }
 
     const remove = (index) => {

@@ -3,11 +3,15 @@ import jsonwebtoken from "jsonwebtoken";
 import User from '../models/User.js';
 
 const accessTokenSecret = 'sdklajdklasjdklsajdkal';
+const refreshTokenSecret = 'fdksfjsdklfjsdklfj';
+let refreshTokens = [];
 const router = express.Router();
 
 // login = www.example.com/auth/login
 router.post('/login', (req, res) => {
     const { username, password } = req.body
+    console.log(username)
+    console.log(password)
     
     User.findOne({username: username}, (err, user) => {
         if(err) {
@@ -19,16 +23,28 @@ router.post('/login', (req, res) => {
 
         user.comparePassword(password, (err, isMatch) => {
             if(err) {
+                console.log('test')
                 console.log(err)
             }
 
             if(isMatch) {
-                const accessToken = jwt.sign(
+                const accessToken = jsonwebtoken.sign(
                     { username: user.username, id: user._id }, // token
                     accessTokenSecret, // secret used to sign the token
                     { expiresIn: '120m' } //tokenDetails
                 )
-                res.json(accessToken)
+                const refreshToken = jsonwebtoken.sign({ username: user.username, id: user._id  }, refreshTokenSecret);
+                
+                
+                const decodedUser = jsonwebtoken.verify(accessToken, accessTokenSecret)
+                console.log('is this the user?')
+                console.log(decodedUser)
+                
+                
+                refreshTokens.push(refreshToken)
+                console.log(accessToken)
+                console.log(refreshToken)
+                res.json({accessToken, refreshToken, decodedUser})
             }
         })
 
@@ -40,8 +56,25 @@ router.post('/login', (req, res) => {
 // sign up
 router.post('/signup', (req, res) => {
     const { username, password } = req.body;
-    // if username already exists, prompt user to login
-    // else create user
+
+    User.findOne({username: username}, (err, user) => {
+        if(user) {
+            res.send(200).send('Username Already Exisits')
+        } else {
+            User.create({
+                username: username,
+                password: password
+            }, (userErr, user) => {
+                if(userErr) {
+                    console.log(userErr)
+                    res.status(404).send(userErr)
+                } else {
+                    res.send('success')
+                }
+            })
+        }
+    })
+
 })
 
 
