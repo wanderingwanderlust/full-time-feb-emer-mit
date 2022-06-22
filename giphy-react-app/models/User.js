@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs/dist/bcrypt";
+import bcrypt from "bcryptjs";
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -15,6 +15,8 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save', function(next) {
     const user = this;
+    console.log("this is the user")
+    console.log(user.password)
     if(user.isModified('password') || user.isNew) {
         bcrypt.genSalt(10, function(saltError, salt) {
             if(saltError) {

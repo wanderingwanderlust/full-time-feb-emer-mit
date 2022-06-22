@@ -9,8 +9,12 @@ const apiKey = 'bS07LFfS4YxZqE5wTrcPGMTJfPTO2LxP';
 // Param: User_Id
 // Response: Json_Obj -> GifSchema
 router.get('/', (req, res) => {
-    console.log(req.user);
-    Gif.find({user: req.body.user.id}, (err, gifs) => {
+    console.log('this is inside the gif model')
+    const user = JSON.parse(req.query.user);
+    const userId = user.id
+    
+    
+    Gif.find({user: userId}, (err, gifs) => {
         if(err) {
             console.log(err)
             res.send('error')
@@ -22,6 +26,9 @@ router.get('/', (req, res) => {
 
 
 router.post('/', (req, res) => {
+
+    // write code that will verify our user
+
     Gif.create( {url: req.body.url, user: req.body.user.id }, (err, gif) => {
         if(err) {
             console.log(err)
