@@ -3,6 +3,7 @@ import {
   Routes,
   Route
   } from 'react-router-dom';
+import Chatbot from 'react-chatbot-kit'
 import logo from './logo.svg';
 // Navigate to a saved (gifs) page
 // Navigate to a search
@@ -15,6 +16,9 @@ import Navi from './components/partials/Navi';
 import GifSearch from './components/gifs/GifSearch';
 import RequireAuth from './components/RequireAuth';
 import { AuthProvider } from './context/authContext';
+import ActionProvider from './chatbot/ActionProvider';
+import MessageParser from './chatbot/MessageParser';
+import config from './chatbot/config';
 
 import './App.css';
 
@@ -38,7 +42,16 @@ function App() {
         </Router>
       </AuthProvider>
 
-      {/* <GifSearch /> */}
+    <div className='container'>
+      <div className='row'>
+        <Chatbot
+          config={config}
+          actionProvider={ActionProvider}
+          messageParser={MessageParser}
+        />
+      </div>
+    </div>
+
     </div>
   );
 }

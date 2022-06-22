@@ -28,25 +28,29 @@ function GifSearch() {
         setGifs(res.data.data)
     }
 
-    const save = (gif) => {
-        console.log('saving gif')
-       console.log(gif)
-    }
-
-    const remove = (index) => {
-        const newArray = savedGifs.filter((gif, key) => key !== index);
-        setSavedGifs(newArray);
-        localStorage.setItem('savedGifs', JSON.stringify(newArray));
+    const save = (gif_url) => {
+        // create object we want to send
+        /*
+        *    {
+        *        "url": "https://media2.giphy.com/media/JFjDf7Yp4KyGsZtVua/giphy.gif?cid=df05885d4fb91z3fyrqja18ukszg1ouhlzmsj386em6ykmqm&rid=giphy.gif&ct=g",
+        *        "user": {
+        *            "id": "6299f8e35ab7a835bbe057bf"
+        *        }
+        *    }
+        */
+       const gifToPost = {
+        "url": gif_url,
+        "user": {
+            "id": localStorage.getItem('user')
+        }
+       }
+       axios.post('gifs', gifToPost).then((res) => {
+        console.log(res)
+       })
     }
 
     return (
         <div>
-            <h3>Saved Gifs</h3>
-            <GifViewer
-                gifs={savedGifs}
-                buttonAction={remove}
-                buttonText={'delete'}
-            />
             <div>
                 <h3>Search for Gifs</h3>
                 <form onSubmit={search}>
@@ -59,7 +63,7 @@ function GifSearch() {
                 <GifViewer
                     gifs={gifs}
                     buttonAction={save}
-                    buttonText={'save'}
+                    buttonText={'Save'}
                 />
             </div>
 
